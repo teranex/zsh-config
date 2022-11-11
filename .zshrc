@@ -19,15 +19,9 @@ export PATH=$PATH:~/scripts:~/.local/bin #:/opt/path/bin/
 export EMAIL=jeroen@$HOST # git commit e-mail
 
 
-# Options
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
-
-# ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-#     backward-char
-# )
-
-## History
-HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"       # The path to the history file.
+# History
+## based on history plugin in prezto
+HISTFILE="$HOME/.zhistory"       # The path to the history file.
 HISTSIZE=100000
 SAVEHIST=100000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -44,6 +38,7 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 setopt HIST_BEEP                 # Beep when accessing non-existent history.
 
 ## Directory
+## based on directory plugin in prezto
 setopt AUTO_CD              # Auto changes to a directory without typing cd.
 setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
@@ -54,9 +49,6 @@ setopt AUTO_NAME_DIRS       # Auto add variable-stored paths to ~ list.
 setopt MULTIOS              # Write to multiple descriptors.
 setopt EXTENDED_GLOB        # Use extended globbing syntax.
 unsetopt CLOBBER            # Do not overwrite existing files with > and >>.
-
-# Autosuggestions
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 
 # Keybindings
@@ -69,6 +61,8 @@ bindkey '^E' end-of-line
 cdUndoKey() {
   popd      > /dev/null
   zle       reset-prompt
+  # reset-prompt doesn't work in Powerlevel10k, see
+  # https://github.com/romkatv/powerlevel10k/issues/72#issuecomment-1008262525
   zle push-line
   zle accept-line
 }
@@ -93,6 +87,7 @@ bindkey '^[OA' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[OB' history-substring-search-down
 
+
 # Aliases
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias gti=git # How often have I made this typo??
@@ -100,29 +95,6 @@ alias :q=exit
 alias ls='ls --group-directories-first --color=auto'
 alias ll='ls -lh'
 
-# export NPM_STORE="${HOME}/.npm-packages"
-# export PATH="$PATH:$NPM_STORE/bin"
-
-# export TEXAS_CONFIG_SIZE=90
-# export TEXAS_CONFIG_TMUX_CONFIG=~/scripts/tmux/texas.config
-
-# export VIMPAGER=~/scripts/vimpager
-# if [ -f /opt/vimpager/vimpager ]; then
-#     export VIMPAGER=/opt/vimpager/vimpager
-# fi
-
-# # unalias some stuff from prezto
-# unalias o
-# unalias rm
-# setopt noextendedglob
-
-# alias man="PAGER=$VIMPAGER man"
-# alias tmux="if tmux has; then tmux -2 attach; else tmux -2 new; fi"
-# alias irssi="TERM=screen irssi" # because i want working scrolling in irssi...
-# alias rg='/opt/ripgrep/rg -S'
-# alias r=ranger
-# alias fd=fdfind # fd is named fdfind in ubuntu repos
-# alias p2r="PATH=$PATH:/home/jeroen/.local/bin p2r -v --rmapi /home/jeroen/go/bin/rmapi --css /home/jeroen/scripts/remarkable/paper2remarkable.css"
 
 # Functions
 function o() {
@@ -142,46 +114,18 @@ function o() {
     fi
 }
 
-# function j() {
-#     # local TARGET=`(cat ~/bashmarks && find /home/jeroen/Projecten/ -maxdepth 3 -type d -not -path '*/\.*' && find /home/jeroen/Customers/ -maxdepth 3 -type d -not -path '*/\.*') | fzf --extended --query="$1" --select-1`
-#     local TARGET=`~/scripts/list-my-dirs.sh | fzf --extended --query="$1" --select-1`
-#     if [ $? -eq 0 ]; then
-#         cd $TARGET
-#     fi
-# }
-
-
-#This is based on: https://github.com/ranger/ranger/blob/master/examples/bash_automatic_cd.sh
-# function ranger-cd {
-#     tempfile="$(mktemp -t tmp.XXXXXX)"
-#     ranger --choosedir="$tempfile" "${@:-$(pwd)}"
-#     test -f "$tempfile" &&
-#     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-#       cd -- "$(cat "$tempfile")"
-#     fi
-#     rm -f -- "$tempfile"
-# }
-
-# bindkey -s '^O' 'ranger-cd\n'
-#ranger-cd will fire for Ctrl+O
-
-
 # http://alias.sh/make-and-cd-directory
 function mkcd() {
     mkdir -p "$1" && cd "$1";
 }
 
 
-# Enable and configure FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Completion
+zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+autoload -Uz compinit && compinit -i
+# Case insensitive completions
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*'
 
-export FZF_COMPLETION_TRIGGER='~~'
-export FZF_ALT_C_COMMAND="fd --type d"
-export FZF_DEFAULT_COMMAND="fd --type f"
-export FZF_CTRL_T_COMMAND="fd"
-export FZF_DEFAULT_OPTS='
-  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
-  --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
 
 # Load command-not-found on Debian-based distributions.
 if [[ -s '/etc/zsh_command_not_found' ]]; then
@@ -194,30 +138,46 @@ else
   return 1
 fi
 
-# The following lines were added by compinstall
-zstyle :compinstall filename "$ZDOTDIR/.zshrc"
 
-autoload -Uz compinit && compinit -i
+# Enable and configure FZF and fzf-tab
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Case insensitive completions
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*'
+export FZF_COMPLETION_TRIGGER='~~'
+export FZF_ALT_C_COMMAND="fd --type d"
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_CTRL_T_COMMAND="fd"
+export FZF_DEFAULT_OPTS='
+  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
+  --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
 
-# End of lines added by compinstall
 source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 
-source $ZDOTDIR/plugins/zsh-auto-notify/auto-notify.plugin.zsh
+
 # Auto notify
+source $ZDOTDIR/plugins/zsh-auto-notify/auto-notify.plugin.zsh
 AUTO_NOTIFY_IGNORE+=("docker" "vi" "git l" "git co")
 
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Auto suggestions
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+
+# Syntax highlighting
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# History substring search
 source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 
+# Powerlevel10k prompt
 source $ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme
-
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
