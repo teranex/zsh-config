@@ -208,7 +208,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 source $ZDOTDIR/plugins/zsh-auto-notify/auto-notify.plugin.zsh
 # Auto notify
-AUTO_NOTIFY_IGNORE+=("docker" "vi")
+AUTO_NOTIFY_IGNORE+=("docker" "vi" "git l" "git co")
 
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
