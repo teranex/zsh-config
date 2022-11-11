@@ -61,6 +61,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Keybindings
 bindkey -v
+# export KEYTIMEOUT=1
 
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
@@ -172,15 +173,15 @@ function mkcd() {
 
 
 # Enable and configure FZF
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#
-# export FZF_COMPLETION_TRIGGER='~~'
-# export FZF_ALT_C_COMMAND="fd --type d"
-# export FZF_DEFAULT_COMMAND="fd --type f"
-# export FZF_CTRL_T_COMMAND="fd"
-# export FZF_DEFAULT_OPTS='
-#   --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
-#   --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_COMPLETION_TRIGGER='~~'
+export FZF_ALT_C_COMMAND="fd --type d"
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_CTRL_T_COMMAND="fd"
+export FZF_DEFAULT_OPTS='
+  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
+  --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
 
 # Load command-not-found on Debian-based distributions.
 if [[ -s '/etc/zsh_command_not_found' ]]; then
