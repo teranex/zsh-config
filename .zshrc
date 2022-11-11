@@ -87,6 +87,10 @@ bindkey '^[OA' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[OB' history-substring-search-down
 
+# make ctrl-q work to push current line
+unsetopt flow_control
+bindkey '^Q' push-line
+
 
 # Aliases
 alias cdr='cd $(git rev-parse --show-toplevel)'
