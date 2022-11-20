@@ -53,7 +53,11 @@ unsetopt CLOBBER            # Do not overwrite existing files with > and >>.
 
 # Keybindings
 bindkey -v
-# export KEYTIMEOUT=1
+export KEYTIMEOUT=1
+## edit a command in vi
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd V edit-command-line
 
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
