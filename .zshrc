@@ -172,6 +172,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 
 # enchancd
 source $ZDOTDIR/plugins/enhancd/init.sh
+# make sure fzf 'drops down' and is not opened full screen
+ENHANCD_FILTER=fzf\ --reverse\ --height=20\ --min-height=2
 
 
 # Auto notify
