@@ -100,8 +100,11 @@ bindkey '^Q' push-line
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias gti=git # How often have I made this typo??
 alias :q=exit
-alias ls='ls --group-directories-first --color=auto'
-alias ll='ls -lh'
+# alias ls='ls --group-directories-first --color=auto'
+# alias ll='ls -lh'
+alias ls='exa --time-style=long-iso --group-directories-first'
+alias ll='ls -l'
+alias tree='ls --tree' 
 
 
 # Functions
