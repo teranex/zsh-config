@@ -167,6 +167,10 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 
 
+# enchancd
+source $ZDOTDIR/plugins/enhancd/init.sh
+
+
 # Auto notify
 source $ZDOTDIR/plugins/zsh-auto-notify/auto-notify.plugin.zsh
 AUTO_NOTIFY_IGNORE+=("docker" "vi" "git l" "git co" "git ca" "git vimdiff")

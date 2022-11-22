@@ -16,3 +16,6 @@
 [submodule "plugins/zsh-syntax-highlighting"]
 	path = plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "plugins/enhancd"]
+	path = plugins/enhancd
+	url = https://github.com/b4b4r07/enhancd.git
