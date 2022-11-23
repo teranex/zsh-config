@@ -178,7 +178,7 @@ ENHANCD_FILTER=fzf\ --reverse\ --height=20\ --min-height=2
 
 # Auto notify
 source $ZDOTDIR/plugins/zsh-auto-notify/auto-notify.plugin.zsh
-AUTO_NOTIFY_IGNORE+=("docker" "vi" "git l" "git co" "git ca" "git vimdiff")
+AUTO_NOTIFY_IGNORE+=("docker" "vi" "git l" "git co" "git ca" "git vimdiff" "ranger")
 
 
 # Auto suggestions
