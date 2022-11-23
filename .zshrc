@@ -102,7 +102,7 @@ alias gti=git # How often have I made this typo??
 alias :q=exit
 # alias ls='ls --group-directories-first --color=auto'
 # alias ll='ls -lh'
-alias ls='exa --time-style=long-iso --group-directories-first'
+alias ls='EXA_COLORS="ur=1;38;5;81:gr=38;5;81:tr=38;5;81:da=38;5;246:uu=38;5;81" exa --time-style=long-iso --group-directories-first --binary'
 alias ll='ls -l'
 alias tree='ls --tree' 
 
