@@ -96,6 +96,26 @@ unsetopt flow_control
 bindkey '^Q' push-line
 
 
+# Enable and configure FZF and fzf-tab
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_COMPLETION_TRIGGER='~~'
+export FZF_ALT_C_COMMAND="fd --type d"
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_CTRL_T_COMMAND="fd"
+export FZF_DEFAULT_OPTS='
+  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
+  --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
+
+source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+
+
 # Aliases
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias gti=git # How often have I made this typo??
@@ -148,26 +168,6 @@ elif [[ -s '/usr/share/doc/pkgfile/command-not-found.zsh' ]]; then
 else
   return 1
 fi
-
-
-# Enable and configure FZF and fzf-tab
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export FZF_COMPLETION_TRIGGER='~~'
-export FZF_ALT_C_COMMAND="fd --type d"
-export FZF_DEFAULT_COMMAND="fd --type f"
-export FZF_CTRL_T_COMMAND="fd"
-export FZF_DEFAULT_OPTS='
-  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
-  --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
-
-source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 
 
 # enchancd
