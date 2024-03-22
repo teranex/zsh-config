@@ -125,6 +125,7 @@ alias :q=exit
 alias ls='EXA_COLORS="ur=1;38;5;81:gr=38;5;81:tr=38;5;81:da=38;5;246:uu=38;5;81" exa --time-style=long-iso --group-directories-first --binary'
 alias ll='ls -l'
 alias tree='ls --tree' 
+alias ssh='TERM=xterm-256color ssh'
 
 
 # Functions
