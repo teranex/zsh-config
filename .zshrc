@@ -198,6 +198,7 @@ source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-searc
 
 
 # Powerlevel10k prompt
+unsetopt auto_name_dirs # disable this option to avoid getting titles such as _p9k__cwd
 source $ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
