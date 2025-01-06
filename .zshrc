@@ -18,6 +18,10 @@ export VISUAL=vi
 export PATH=$PATH:~/scripts:~/.local/bin #:/opt/path/bin/
 export EMAIL=jeroen@$HOST # git commit e-mail
 
+# SSH_AUTH_SOCK is not set correctly on EndeavourOS for some reason, set it manually
+if [[ -e "$XDG_RUNTIME_DIR/gcr/ssh" ]]; then
+    export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+fi
 
 # History
 ## based on history plugin in prezto
