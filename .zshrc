@@ -177,10 +177,13 @@ fi
 
 
 # enchancd
-source $ZDOTDIR/plugins/enhancd/init.sh
-# make sure fzf 'drops down' and is not opened full screen
-ENHANCD_FILTER=fzf\ --reverse\ --height=20\ --min-height=2
-ENHANCD_ENABLE_DOUBLE_DOT=false
+# source $ZDOTDIR/plugins/enhancd/init.sh
+# # make sure fzf 'drops down' and is not opened full screen
+# ENHANCD_FILTER=fzf\ --reverse\ --height=20\ --min-height=2
+# ENHANCD_ENABLE_DOUBLE_DOT=false
+
+# Enable zoxide
+eval "$(zoxide init --cmd cd zsh)"
 
 
 # Auto notify
