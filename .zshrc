@@ -15,6 +15,7 @@ export KEYID=610DB834
 export PGPKEY=610DB834
 export EDITOR=vi
 export VISUAL=vi
+export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export PATH=$PATH:~/scripts:~/.local/bin #:/opt/path/bin/
 export EMAIL=jeroen@$HOST # git commit e-mail
 
