@@ -130,7 +130,7 @@ alias :q=exit
 # alias ll='ls -lh'
 alias ls='EXA_COLORS="ur=1;38;5;81:gr=38;5;81:tr=38;5;81:da=38;5;246:uu=38;5;81" eza --time-style=long-iso --group-directories-first --binary --icons --git'
 alias ll='ls -l'
-alias tree='ls --tree' 
+alias tree='ll --tree' 
 alias ssh='TERM=xterm-256color ssh'
 alias y=yazi
 
